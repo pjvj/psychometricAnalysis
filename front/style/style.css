@@ -1,0 +1,331 @@
+.ButtonStyle {
+
+    margin-left: 40px;
+}
+.SearchStyle {
+    width: 40em;
+    marginLeft: 40px;
+}
+
+.Style {
+    width: 700px;
+    height: 100px;
+    borderRadius: 3%;
+    color: black;
+    padding: 2px 2px 2px 2px;
+    margin: 20px 20px 20px 40px;
+}
+
+.Style1 {
+    width: 700px;
+    height: 350px;
+    opacity: 0.9;
+    padding: 2px 2px 2px 2px;
+    margin: 20px 20px 20px 40px;
+    borderRadius: 0px;
+}
+.bg{
+    background-image: url("/test/Frozen.jpg");
+}
+.list-group-item {
+    background-color: beige;
+}
+.space{
+    /*border:2px solid black;*/
+}
+.color2{
+    color:#0a0f0f;
+}
+
+.fill {
+    color: white;
+}
+.space2{
+
+
+}
+.space1
+{
+
+
+}
+
+
+
+
+
+.color1{
+    color: white;
+}
+
+
+.submit{
+    margin-top: 40px;
+    margin-left: 480px;
+}
+
+.thick{
+    width:500px;
+}
+
+
+
+
+.displays{
+    color: white;
+    display:block;
+    font-size: large;
+}
+
+.left{
+    text-align: left;
+}
+.right{
+    text-align: right;
+}
+
+
+.p1{
+    font-size: larger;
+    color: #122b40;
+}
+p{
+    font-size: large;
+}
+
+.imgsand{
+    margin-top: 5px;
+    width: 320px;
+    height: 663px;
+}
+.headsand{
+
+    border: #1b3249;
+    font-size: 80px;
+    font-weight: bolder;
+    /*font-family: 'Bree Serif', serif;*/
+    font-family: 'IBM Plex Mono', monospace;
+    color: #1ACCD2;
+}
+.img2{
+    width: 1500px;
+    max-height: 600px;
+}
+.img1{
+    width: 1000px;
+    max-height: 500px;
+}
+
+
+.foot{
+    position:sticky;
+    left:0;
+    bottom:0;
+    right:0;
+    width: 1100px;
+}
+/*.footer1{
+    position: sticky;
+    left:0;
+    bottom:0;
+    right:0;
+}*/
+
+.rowset{
+
+    margin-top: 3px;
+    border:1px solid black;
+    background-color: gray;
+    padding-top:10px;
+}
+
+.item1{
+    text-align: center;
+    padding:5px;
+    width:550px;
+    font-size: 20px;
+    color: black;
+
+}
+
+html,
+body {
+    background-color: #98978b;
+    min-height: 100%;
+    min-width: 100%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.search{
+    width:150px;
+    height: 35px;
+}
+.details{
+    list-style-type: none;
+    margin:5px;
+    padding:5px;
+
+}
+.vertical-menu{
+    border-left:2px solid black;
+    border-right:2px solid black;
+    border-top:2px solid black;
+    border-bottom:2px solid black;
+    overflow-y: auto;
+    background-color:#c2d6d6;
+    height: 500px;
+    width: 600px;
+    padding-left: 5px;
+    padding-top:10px;
+    padding-bottom:10px;
+    font-family: 'Bree Serif', serif;
+    font-size: larger;
+    text-decoration: none;
+
+
+}
+.linked{
+  color: #1b3249;
+
+}
+.linked:active {
+    text-decoration: none;
+}
+
+li:hover{
+    background-color:gray;
+    text-decoration: none;
+}
+li.active{
+    color:white;
+}
+.container12{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+   /* max-height: 100%;
+    max-width: 100%;*/
+    min-width: 100%;
+    min-height: 100%;
+    background-color: blanchedalmond;
+
+}
+
+
+
+
+
+
+.dated{
+    margin-top: 20px;
+    font-size: 20px;
+    font-family: Arial;
+    font-weight: bold;
+    font-family: bold;
+    margin-right: 0px;
+    color: darkorange;
+}
+.date{
+    font-size: 43px;
+    font-family: Arial;
+    font-weight: bold;
+    font-family: bold;
+    margin-right: 0px;
+    color: darkorange;
+}
+
+.day{
+    text-align: right;
+    margin-top: 10px;
+    padding-right: 30px;
+    font-size: 30px;
+}
+
+.card{
+    border: 1px solid crimson;
+    width: 28rem;
+    text-align: center;
+
+}
+.card-img{
+    height: 50px;
+    padding-top: 15px;
+
+
+}
+.input1 {
+    margin-top: 5px;
+    alignment: left;
+    align-self: left;
+    font-size: 16px;
+    border: 2px solid darkorange;
+    width: 250px;
+}
+.card-body{
+
+    font-size: 10px;
+    margin-right: 0px;
+    color: #FFF;
+}
+.card-title{
+
+    font-size: 30px;
+    font-family: Arial;
+    font-weight: bold;
+    font-family: bold;
+    color: darkorange;
+}
+
+.ul {
+    margin-right: 20px;
+    padding-right: 20px;
+    margin-inside: 0px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+
+}
+
+.list1{
+    text-align: left;
+    width: 350px;
+}
+
+.list-group-item:hover{
+    text-align: left;
+    alignment: left;
+    color: HighlightText;
+    text-emphasis-color: black;
+    cursor: all-scroll;
+    width: 350px;
+
+}
+
+.btn{
+
+    border-radius: 100%;
+    border-color: darkorange;
+}
+.button1{
+
+    background-color: white;
+    border: solid 5px burlywood;
+    border-radius: 50%;
+    vertical-align: top;
+    horiz-align: left;
+
+}
+.button2{
+    background-color: white;
+    border: solid 5px darkorange;
+    border-radius: 50%;
+    vertical-align: top;
+    horiz-align: left;
+}
+.ToggleButton{
+    color: darkorange;
+    border-color: darkorange;
+}
+

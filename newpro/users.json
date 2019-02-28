@@ -1,0 +1,20 @@
+{
+  "apoorvg": {
+    "name": "Apoorv Garg",
+    "email": "apoorvg@buyhatke.com",
+    "password": "12345",
+    "admin": false
+  },
+  "apoorvgg": {
+    "name": "Apoorv Garg",
+    "email": "apoorvg@buyhatke.com",
+    "password": "12345",
+    "admin": true
+  },
+  "": {
+    "name": "",
+    "email": "",
+    "password": "",
+    "admin": false
+  }
+}
