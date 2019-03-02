@@ -1,0 +1,65 @@
+.testcred{
+    position: inherit;
+    float: inherit;
+    margin-top: 45px;
+}
+.testinput{
+    width: -webkit-fill-available;
+    font-size: larger;
+    font-style: italic;
+    font-family: monospace;
+}
+.quesans{
+    width: inherit;
+    font-size: large;
+    font-style: inherit;
+    font-family: serif;
+
+}
+.test1{
+    padding: 6px 10px;
+    position: inherit;
+    float: inherit;
+    margin-top: 10px;
+}
+.test2{
+    padding: 6px 12px;
+    position: inherit;
+    float: inherit;
+    margin-top: 20px;
+}
+
+.tab {
+    overflow: hidden;
+    border: 2px solid #ccc;
+    background-color: #f1f1f1;
+  }
+
+.tablinks{
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 25px;
+    font-family: fantasy;
+    font-weight: 900;
+  }
+  /* Change background color of buttons on hover */
+.tablinks:hover {
+    background-color: #ddd;
+  }
+   
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: darkslategray;
+  } 
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }

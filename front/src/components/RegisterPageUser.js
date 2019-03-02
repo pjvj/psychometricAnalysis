@@ -1,5 +1,6 @@
 import React from 'react';
 import {browserHistory} from "react-router";
+import {Link} from "react-router";
 //import $ from 'jquery';
 //import {bootstrapValidator} from 'react-bootstrap';
 
@@ -38,8 +39,8 @@ export default class RegisterPageUser extends React.Component
     render() {
         return (
     <div className="div">
-        {/* <form className="registerer">*/}
             <h2 className="registerhd">REGISTER</h2>
+            <form onSubmit={this.onSubmit1}>
             <div className="input-container">
                 <i className="fa fa-user icon"/>
                 <input className="input-field" type="text" placeholder="Full Name" id="name"/>
@@ -60,8 +61,8 @@ export default class RegisterPageUser extends React.Component
                 <i className="fa fa-key icon"/>
                 <input className="input-field" type="text" placeholder="Confirm Password" id="psw chk"/>
             </div>
-            <button type="submit" onClick={this.onSubmit1} className="btn">Register</button>
-        {/* // </form>*/}
+            <button type="submit" onClick={this.onSubmit1} className="btn"><Link to="/">Register</Link></button>
+            </form>
     </div>
         );
     }

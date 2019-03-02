@@ -1,7 +1,6 @@
 import React from 'react';
-import {browserHistory} from "react-router";
-
-
+import {browserHistory, Redirect} from "react-router";
+import {Link} from "react-router";
 export default class SignPageUser extends React.Component {
 
     onSubmit1=()=> {
@@ -28,8 +27,11 @@ export default class SignPageUser extends React.Component {
             }
             else
             {
-                 localStorage.setItem("user", JSON.stringify(data.response));
-                browserHistory.push("/logIn");
+                localStorage.setItem("user", JSON.stringify(data.response));
+                //browserHistory.push("/logIn");
+                //browserHistory.push("/");
+                //this.props.history.push("/logIn");
+                //<Redirect to="/logIn"/>
             }
 
         })
@@ -43,6 +45,7 @@ export default class SignPageUser extends React.Component {
             <div className="div">
                 
                     <h2 className="registerhd">SIGNIN</h2>
+                    <form onSubmit={this.onSubmit1}>
                     <div className="input-container">
                         <i className="fa fa-user icon"/>
                         <input className="input-field" type="text" placeholder="Username" id="urn"/>
@@ -51,8 +54,8 @@ export default class SignPageUser extends React.Component {
                         <i className="fa fa-key icon"/>
                         <input className="input-field" type="password" placeholder="Password" id="psw"/>
                     </div>
-                    <button  onClick={this.onSubmit1} className="btn">Sign In</button>
-                
+                    <button className="btn">Sign In</button>
+                    </form>
             </div>
         );
     }

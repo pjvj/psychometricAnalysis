@@ -16,5 +16,65 @@
     "email": "",
     "password": "",
     "admin": false
+  },
+  "pallo": {
+    "name": "PALLAVI JAIN",
+    "email": "socutepallavi@gmail.com",
+    "password": "12345",
+    "admin": false
+  },
+  "pj": {
+    "name": "PALLAVI JAIN",
+    "email": "socute@gmail.com",
+    "password": "12345",
+    "admin": false
+  },
+  "vishi": {
+    "name": "vaishali",
+    "email": "vishi",
+    "password": "12345",
+    "admin": false
+  },
+  "vj": {
+    "name": "vaishali jain",
+    "email": "vj",
+    "password": "12345",
+    "admin": false
+  },
+  "seema5": {
+    "name": "Seema jain",
+    "email": "pallavi.jain@swymcorp",
+    "password": "12345",
+    "admin": true
+  },
+  "vishal629": {
+    "name": "vishal jain",
+    "email": "ytfgjhkj@gmail.com",
+    "password": "12345",
+    "admin": true
+  },
+  "apoorvgarg": {
+    "name": "apoorv",
+    "email": "pallavi.jain@swymcorp",
+    "password": "2345",
+    "admin": true
+  },
+  "vedu": {
+    "name": "vedant jIN",
+    "email": "socute@gmail.com",
+    "password": "3456",
+    "admin": true
+  },
+  "shibu": {
+    "name": "shivangi gupta",
+    "email": "socute@gmail.com",
+    "password": "789",
+    "admin": true
+  },
+  "palli": {
+    "name": "PALLAVI JAIN",
+    "email": "pallavi.jain@swymcorp",
+    "password": "1234",
+    "admin": true
   }
 }

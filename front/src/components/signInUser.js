@@ -1,6 +1,6 @@
 import React from 'react';
 import {browserHistory} from "react-router";
-
+import {Link} from "react-router";
 
 export default class SignPageUser extends React.Component {
 
@@ -36,6 +36,7 @@ export default class SignPageUser extends React.Component {
             <div className="div">
              
                     <h2 className="registerhd">SIGNIN</h2>
+                    <form onSubmit={this.onSubmit1}>
                     <div className="input-container">
                         <i className="fa fa-user icon"/>
                         <input className="input-field" type="text" placeholder="Username" id="urn"/>
@@ -44,8 +45,8 @@ export default class SignPageUser extends React.Component {
                         <i className="fa fa-key icon"/>
                         <input className="input-field" type="password" placeholder="Password" id="psw"/>
                     </div>
-                    <button type="submit" onClick={this.onSubmit1} className="btn">Sign In</button>
-             
+                    <button type="submit" className="btn">Sign In</button>
+                    </form>
             </div>
         );
     }
