@@ -28,7 +28,7 @@ export default class SignPageUser extends React.Component {
             }
             else
             {
-            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem("user", JSON.stringify(data.response));
             //browserHistory.push("logIn");
             }
 

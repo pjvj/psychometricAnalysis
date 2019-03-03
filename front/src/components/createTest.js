@@ -51,8 +51,10 @@ export default class CreateTest extends Component{
        
     }
     uploadQuesAns=(e)=>{
-        var data={ data:[]};
-        data.data=this.state.phase1;
+        let data={ 
+            data:this.state.phase1,
+            description:document.getElementById("testd").value
+        };
         
         console.log(data);
         console.log(this.state.phase1);
@@ -98,7 +100,7 @@ export default class CreateTest extends Component{
             
             <div className="testcred">
             <input className="testinput" id="testname" placeholder="Test Name"></input>
-            <input className="testinput" placeholder="Test Description"></input>
+            <input id = "testd" className="testinput" placeholder="Test Description"></input>
             </div>
             <div className="test1" style={{    backgroundColor: "lightblue"}}>
                 <p style={{fontFamily: "Consolas",fontSize:"30px"}}>

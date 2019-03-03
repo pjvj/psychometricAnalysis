@@ -14,7 +14,8 @@ export default class LogPage extends Component {
             tags: [],
             create: false,
             modify: false,
-            response: false
+            response: false,
+            tests:[]
         };
         
     }
@@ -40,6 +41,23 @@ export default class LogPage extends Component {
         this.doSomething(event,'Create');
         }
     ModifyTest=()=>{
+        fetch("http://localhost:8889/getTests/",
+            {
+                method: 'post',
+                headers: new Headers({'content-type': 'application/json'}),
+                "withCredentials":true,
+                "mode":"cors",
+                body: JSON.stringify({
+                    username:JSON.parse(localStorage.getItem("user")).username
+                })
+            }).then(response => {
+            return response.json()
+        }).then((res)=>{
+            console.log(res);
+            this.setState({
+                tests:res
+            });
+        })
       
             this.setState({
                 modify:true
@@ -76,7 +94,7 @@ export default class LogPage extends Component {
                      {this.state.create&&(<CreateTest/> )}
                     </div>  
                     <div id="Modify" className="tabcontent" >
-                    {this.state.modify&&( <ModifyTest person={JSON.parse(localStorage.getItem("user"))}/>)}
+                    {this.state.modify&&( <ModifyTest initialData ={this.state.tests} person={JSON.parse(localStorage.getItem("user"))}/>)}
                     </div>  
                     <div id="Response" className="tabcontent">
                     {this.state.response&&(<SeeResponses/>)}

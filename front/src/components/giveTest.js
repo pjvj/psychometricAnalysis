@@ -13,9 +13,12 @@ export default class ModifyTest extends Component{
             quesans:[]
         }
     }
+
+    
     handleChange=(e)=>{
         console.log(e.target.name);
         let test  = this.state.test;
+        let admin = this.state.admin;
         let name = e.target.name;
         if(name.split('testtomodify').length>1)
         {
@@ -36,6 +39,8 @@ export default class ModifyTest extends Component{
     
     findTests=()=>{
         var testname=this.state.test;
+        var user= this.state.admin;
+        console.log(user);
         console.log(testname);
         const config = {
             headers: {
@@ -43,13 +48,13 @@ export default class ModifyTest extends Component{
             },
             
         };
-        var user= JSON.parse(localStorage.getItem("user")).username;
+        
+       
         axios.get(`http://localhost:8889/findtest/${user}/${testname}`)
             .then((response) => {
                 console.log(response);
-                var data= response.data;
                 this.setState({
-                    quesans:data
+                    quesans:response.response
                 });
                 //alert("The findtest is successful");
             }).catch((error) => {
@@ -62,8 +67,7 @@ export default class ModifyTest extends Component{
                     images:response.files
                 });
                 console.log("state image",this.state.images);
-                //var data= response.imageLists;
-                //alert("The findimages is successful");
+                
             }).catch((error) => {
         });
 
@@ -77,7 +81,7 @@ export default class ModifyTest extends Component{
             <input name="testadmin" placeholder="testadmin" onChange={this.handleChange}></input>
             <button name="Submitt" onClick={this.findTests}>Go to test</button>
             <div>
-                <Test/>
+                {this.state.quesans.length>0 && <Test quesans={this.state.quesans } images={this.state.images}/> }
             </div>
         </div>
         )

@@ -7,12 +7,13 @@ var multer = require('multer');
 var jsonfile = require('jsonfile');
 const path =require('path');
 const fs = require('fs');
+const Dpath = `/Users/pallavi/college/psychometricAnalysis/UsersData/`;
 
 
 var Storage = multer.diskStorage({
    destination: function(req, file, callback) {
       console.log(req.user);
-       callback(null, `/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/`+`Images2/`);
+       callback(null, `${Dpath}${user}/${testname}/`+`Images2/`);
    },
    filename: function(req, file, callback) {
       //console.log(file,"heheheh");
@@ -67,12 +68,12 @@ app.listen(port,()=> {
    app.post('/uploadtest/:user/:testname/',function(req, res){
       console.log("quesans upload k ander");
       
-      req.user = req.params.user;
-      req.testname= req.params.testname;
-      let json=JSON.stringify(req.body);
+      let user = req.params.user;
+       let testname= req.params.testname;
+      let json=req.body;
       //let json=req.body;
       console.log(json);
-      const folderName = `/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/`+`Images2`;
+      const folderName = `${Dpath}${user}/${testname}/`+`Images2`;
       try {
          if (!fs.existsSync(folderName)){
             fs.mkdirSync(folderName,{recursive: true});
@@ -80,8 +81,28 @@ app.listen(port,()=> {
          } catch (err) {
          console.error(err)
          }
-      fs.openSync(`/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/`+"quesans.json",'w');
-      fs.writeFileSync(`/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/`+"quesans.json", json, {spaces:2},function(err, result) {
+      fs.readFile(`${Dpath}${user}/testDetails.json`,(err,obj)=>{
+         
+         if(err)
+         {
+            console.log(err);
+            let testsDetails = {};
+            testsDetails[testname]={userslist:[],testDescription:json.description};   
+            fs.writeFileSync(`${Dpath}${user}/testDetails.json`,JSON.stringify(testsDetails),{spaces:2});
+         }
+         else
+         {
+            console.log(obj);
+            let testsDetails = JSON.parse(obj);
+            testsDetails[testname]={
+               userslist:[],
+               testDescription:json.description
+            }
+            fs.writeFileSync(`${Dpath}${user}/testDetails.json`,JSON.stringify(testsDetails),{spaces:2});
+         }
+      })
+      fs.openSync(`${Dpath}${user}/${testname}/`+"quesans.json",'w');
+      fs.writeFileSync(`${Dpath}${user}/${testname}/`+"quesans.json", JSON.stringify(json.data), {spaces:2},function(err, result) {
          if(err) console.log('error', err);
          res.send(JSON.stringify({
             error:true,
@@ -93,9 +114,9 @@ app.listen(port,()=> {
    });
 
    app.post("/upload/:user/:testname/", function(req, res) {
-      req.user = req.params.user;
-      req.testname= req.params.testname;
-      const folderName = `/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/`+`Images2`;
+      let user = req.params.user;
+      let testname= req.params.testname;
+      const folderName = `${Dpath}${user}/${testname}/`+`Images2`;
       try {
          if (!fs.existsSync(folderName)){
             fs.mkdirSync(folderName,{recursive: true});
@@ -116,21 +137,17 @@ app.listen(port,()=> {
 
    app.get("/findtest/:user/:testname/", function(req, res) {
       console.log("yftgjhwefbkjsnvkljkhv");
-      req.user = req.params.user;
-      req.testname= req.params.testname;
-      jsonfile.readFile(`/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/`+'quesans.json',(err,obj)=>{
+      let user = req.params.user;
+      let testname= req.params.testname;
+      jsonfile.readFile(`${Dpath}${user}/${testname}/`+'quesans.json',(err,obj)=>{
          console.log("ander aaya get k");
          
          if(!err){
             console.log("no error give quesans");
-            let data = obj["data"];
             res.send(JSON.stringify({
                error:false,
                msg:"Found the file",
-               response:{
-                     data
-               }
-
+               response:obj
             }));
          }
          else
@@ -146,51 +163,42 @@ app.listen(port,()=> {
 
    app.get("/findimages/:user/:testname/", function(req, res) {
       console.log("inside find images");
-      req.user = req.params.user;
-      req.testname= req.params.testname;
+      let user = req.params.user;
+      let testname= req.params.testname;
       
-      var imageDir=`/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/Images2/`;
+      var imageDir=`${Dpath}${user}/${testname}/Images2/`;
       getImages(imageDir, function (err, files) {
-         // var imageLists = '<ul>';
-         // for (var i=0; i<files.length; i++) {
-         //     imageLists += '<li><a href="/?image=' + files[i] + '">' + files[i] + '</li>';
-         // }
-         // imageLists += '</ul>';
+         if(!err)
+         {
          res.send(JSON.stringify({
             error:false,
             msg:"Found the file",
-            response:{
+            response:
                files
-            }
 
          }));
-         //res.send(imageLists);
+      }
+      else
+      {
+         res.send(JSON.stringify([]));
+      }
      });
+   });
 
-      jsonfile.readFile(`/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/`+'quesans.json',(err,obj)=>{
-         console.log("ander aaya get k");
-         
-         if(!err){
-            console.log("no error give quesans");
-            let data = obj["data"];
-            res.send(JSON.stringify({
-               error:false,
-               msg:"Found the file",
-               response:{
-                     data
-               }
 
-            }));
+   app.post('/getTests',(req,res)=>{
+      let user = req.body.username;
+      fs.readFile(`${Dpath}${user}/testDetails.json`,(err,obj)=>{
+         if(err)
+         {
+            res.send(JSON.stringify([]));
          }
          else
          {
-            console.log("yes error give eeror");
-            res.send(JSON.stringify({
-               error:true,
-               msg:err
-            }));
+            obj = JSON.parse(obj);
+            res.send(JSON.stringify((obj)));
          }
-      });
+      })
    });
 
 
