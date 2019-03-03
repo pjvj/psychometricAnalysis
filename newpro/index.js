@@ -196,7 +196,7 @@ app.listen(port,()=> {
          else
          {
             obj = JSON.parse(obj);
-            res.send(JSON.stringify((obj)));
+            res.send(JSON.stringify(Object.keys(obj)));
          }
       })
    });

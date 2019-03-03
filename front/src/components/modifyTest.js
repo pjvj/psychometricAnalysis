@@ -7,8 +7,7 @@ export default class ModifyTest extends Component{
     constructor(props) {
         super(props);
         this.state={
-            test: {},
-            testdescription:"",
+            test: "",
             images: [],
             quesans:[],
             showTest:false,
@@ -21,16 +20,14 @@ export default class ModifyTest extends Component{
         if(prevProps!=nextProps&&nextProps.initialData.length>0)
         {
             this.setState({
-                test:nextProps.initialData
+                test:nextProps.initialData[0]
             })
 
         }
     }
 
     findTests=()=>{
-        var testn=this.state.test;
-        testn = Object.keys(testn);
-        var testname= testn[0];
+        var testname=this.state.test;
         console.log(testname);
         const config = {
             headers: {
@@ -131,9 +128,7 @@ export default class ModifyTest extends Component{
             body: JSON.stringify(data)
         };
         var user= JSON.parse(localStorage.getItem("user")).username;
-        var testn=this.state.test;
-        testn = Object.keys(testn);
-        var testname= testn[0];
+         var   testname= this.state.test;
         axios.post(`http://localhost:8889/uploadtest/${user}/${testname}`,data,config)
             .then((response) => {
                 alert("The test is successfully uploaded");
@@ -170,8 +165,7 @@ export default class ModifyTest extends Component{
         <div>
             <div>
             {
-                (this.props.initialData&&this.props.initialData.length>0 && console.log("cfhgvjhbkjnlkf efbWKE EF   BJLRJW"))?(
-                    
+                (this.props.initialData&&this.props.initialData.length>0)?(
                     <select onChange={(e)=>{this.setState({
                         test:e.target.value
                     })}}>
@@ -187,8 +181,8 @@ export default class ModifyTest extends Component{
             </div>
             <div className="div ">
                 {
-                (this.state.showTest)?(
-                <div> <input id = "testd" className="testinput" value={this.props.initialData[this.state.test]["testDescription"]} placeholder="Test Description"></input>
+                    (this.state.showTest)?(
+                <div>
                 <button name="add" onClick={this.handleChange}>Add Row</button>
                 <table>
                     <tbody>
