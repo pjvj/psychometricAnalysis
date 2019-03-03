@@ -35,6 +35,7 @@
     "react-dom": "^0.14.9",
     "react-redux": "4.3.0",
     "react-router": "^2.0.1",
+    "react-webcam": "^1.1.0",
     "redux": "^3.0.4",
     "youtube-api-search": "0.0.5"
   }

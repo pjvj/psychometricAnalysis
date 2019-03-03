@@ -54,7 +54,7 @@ export default class SignPageUser extends React.Component {
                         <i className="fa fa-key icon"/>
                         <input className="input-field" type="password" placeholder="Password" id="psw"/>
                     </div>
-                    <button className="btn">Sign In</button>
+                    <button className="btn-sign">Sign In</button>
                     </form>
             </div>
         );

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 const axios = require("axios");
-
+import Test from "./test.js";
 
 
 export default class ModifyTest extends Component{
@@ -8,11 +8,32 @@ export default class ModifyTest extends Component{
         super(props);
         this.state={
             test: "",
+            admin:"",
             images:[],
             quesans:[]
         }
     }
-
+    handleChange=(e)=>{
+        console.log(e.target.name);
+        let test  = this.state.test;
+        let name = e.target.name;
+        if(name.split('testtomodify').length>1)
+        {
+            test=e.target.value;
+            this.setState({
+                test:test
+            });
+        }
+        else
+        if(name.split('testadmin').length>1)
+        {
+            admin=e.target.value;
+            this.setState({
+                admin:admin
+            });
+        }
+    }  
+    
     findTests=()=>{
         var testname=this.state.test;
         console.log(testname);
@@ -47,33 +68,16 @@ export default class ModifyTest extends Component{
         });
 
     }
-    handleChange=(e)=>{
-        console.log(e.target.name);
-        let test  = this.state.test;
-        let name = e.target.name;
-        if(name.split('testtomodify').length>1)
-        {
-            test=e.target.value;
-            
-        }
-        this.setState({
-            test:test
-        });
-    }   
+
     render() {
-    
-        // if(!this.state.images.length)
-        //     return null;
-        //console.log(this.state.images.length);
-        let images = this.state.images.map((el, i) => (
-            <img key={i} className='images' src={el} />
-        ));
+
         return(
         <div>
             <input name="testtomodify" placeholder="testname" onChange={this.handleChange} ></input>
-            <button name="Submittestname" onClick={this.findTests}>Find test</button>
+            <input name="testadmin" placeholder="testadmin" onChange={this.handleChange}></input>
+            <button name="Submitt" onClick={this.findTests}>Go to test</button>
             <div>
-            {images}
+                <Test/>
             </div>
         </div>
         )

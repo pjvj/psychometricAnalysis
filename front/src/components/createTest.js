@@ -48,27 +48,7 @@ export default class CreateTest extends Component{
         this.setState({
             images:files
         });
-        // const data  = new FormData();
-        // console.log(e.target.files.length);
-        
-        // for(let k=0;k<e.target.files.length;k++)
-        // {
-        //     data.append('imgUploader',e.target.files[k]);
-        // }
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     },
-            
-            
-        // };
-        // var user=JSON.parse(localStorage.getItem("user")).username;
-        // var testname= document.getElementById("testname").value;
-        // axios.post(`http://localhost:8889/upload/${user}/${testname}`,data,config)
-        //     .then((response) => {
-        //         alert("The file is successfully uploaded");
-        //     }).catch((error) => {
-        // });
+       
     }
     uploadQuesAns=(e)=>{
         var data={ data:[]};

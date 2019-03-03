@@ -22,8 +22,15 @@ export default class SignPageUser extends React.Component {
             return response.json()
         }).then(function (data) {
             console.log(data);
+            if(data.error)
+            {
+                alert(data.msg);
+            }
+            else
+            {
             localStorage.setItem("user", JSON.stringify(data));
-            browserHistory.push("logIn");
+            //browserHistory.push("logIn");
+            }
 
         })
             .catch(function (error) {
@@ -45,7 +52,7 @@ export default class SignPageUser extends React.Component {
                         <i className="fa fa-key icon"/>
                         <input className="input-field" type="password" placeholder="Password" id="psw"/>
                     </div>
-                    <button type="submit" className="btn">Sign In</button>
+                    <button type="submit" className="btn-sign ">Sign In</button>
                     </form>
             </div>
         );

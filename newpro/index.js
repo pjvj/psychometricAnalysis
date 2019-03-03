@@ -151,16 +151,16 @@ app.listen(port,()=> {
       
       var imageDir=`/Users/pallavi/college/psychometricAnalysis/UsersData/${req.user}/${req.testname}/Images2/`;
       getImages(imageDir, function (err, files) {
-         var imageLists = '<ul>';
-         for (var i=0; i<files.length; i++) {
-             imageLists += '<li><a href="/?image=' + files[i] + '">' + files[i] + '</li>';
-         }
-         imageLists += '</ul>';
+         // var imageLists = '<ul>';
+         // for (var i=0; i<files.length; i++) {
+         //     imageLists += '<li><a href="/?image=' + files[i] + '">' + files[i] + '</li>';
+         // }
+         // imageLists += '</ul>';
          res.send(JSON.stringify({
             error:false,
             msg:"Found the file",
             response:{
-               imageLists
+               files
             }
 
          }));

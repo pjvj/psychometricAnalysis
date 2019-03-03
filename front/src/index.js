@@ -7,6 +7,7 @@ import MainPage from "./components/mainpage";
 import SignPageUser from "./components/signInUser";
 import SignPageAdmin from "./components/signInAdmin";
 import LogPage from "./components/loggedin";
+import DashBoard from './components/userdashboard';
 
 class App extends React.Component {
     render(){
@@ -18,6 +19,7 @@ class App extends React.Component {
         <Route path={"registerAdmin"} component={RegisterPageAdmin}/>
         <Route path={"signInAdmin"} component={SignPageAdmin}/>
         <Route path={"logIn"} component={LogPage}/>
+        <Route path={"Dashboard"} component={DashBoard}/>
         </Router>
     );
     }
