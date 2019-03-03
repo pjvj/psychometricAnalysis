@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 const axios = require("axios");
 //import Gallery from 'react-grid-gallery';
 import {Image} from 'react-bootstrap';
-const Dpath = `/Users/pallavi/college/psychometricAnalysis/UsersData/`;
+const Dpath = `/Users/apoorv/Documents/psychometricAnalysis/UsersData/`;
 export default class ModifyTest extends Component{
     constructor(props) {
         super(props);
