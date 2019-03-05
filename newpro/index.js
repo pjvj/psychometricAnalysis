@@ -13,7 +13,7 @@ const Dpath = `/Users/apoorv/Documents/psychometricAnalysis/UsersData/`;
 var Storage = multer.diskStorage({
    destination: function(req, file, callback) {
       console.log(req.user);
-       callback(null, `${Dpath}${user}/${testname}/`+`Images2/`);
+       callback(null, `${Dpath}${req.user}/${req.testname}/`+`Images2/`);
    },
    filename: function(req, file, callback) {
       //console.log(file,"heheheh");
@@ -70,6 +70,9 @@ app.listen(port,()=> {
       
       let user = req.params.user;
        let testname= req.params.testname;
+       
+      req.user = req.params.user ;
+      req.testname = req.params.testname ;
       let json=req.body;
       //let json=req.body;
       console.log(json);
@@ -116,6 +119,9 @@ app.listen(port,()=> {
    app.post("/upload/:user/:testname/", function(req, res) {
       let user = req.params.user;
       let testname= req.params.testname;
+      
+      req.user = req.params.user ;
+      req.testname = req.params.testname ;
       const folderName = `${Dpath}${user}/${testname}/`+`Images2`;
       try {
          if (!fs.existsSync(folderName)){
@@ -134,6 +140,13 @@ app.listen(port,()=> {
           return res.end("File uploaded sucessfully!");
       });
    });
+
+   app.get('/getimage/:user/:test/:image',(req,res)=>{
+      let user = req.params.user;
+      let test = req.params.test;
+      let image = req.params.image;
+      res.sendFile(`${Dpath}${user}/${test}/Images2/${image}`);
+   })
 
    app.get("/findtest/:user/:testname/", function(req, res) {
       console.log("yftgjhwefbkjsnvkljkhv");

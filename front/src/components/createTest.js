@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 const axios = require("axios");
+import {Image} from 'react-bootstrap';
 
 export default class CreateTest extends Component{
     constructor(props)
@@ -45,8 +46,13 @@ export default class CreateTest extends Component{
     }
     uploadFile = (e)=>{
         const files = Array.from(e.target.files);
+        console.log(files);
+        let images = this.state.images;
+        console.log(images);
+        images.push(...files);
+        console.log(images);
         this.setState({
-            images:files
+            images:images
         });
        
     }
@@ -124,6 +130,13 @@ export default class CreateTest extends Component{
             You can add images for the second phase of test here.</p>
             <input type="file" name="imgUploader"  onChange={this.uploadFile} multiple/>
             </div>
+            {this.state.images&&this.state.images.length>0
+            &&this.state.images.map((value,key)=>{
+                return (<Image key={key+1} style={{
+                    width:"50px",
+                    height:"50px"
+                }}src={URL.createObjectURL(value)} name={"img"+key} roundedCircle />)
+            })}
             <button name="Submittest" onClick={this.uploadQuesAns}>Submit test</button>
         </div>);
     }

@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 const axios = require("axios");
 //import Gallery from 'react-grid-gallery';
 import {Image} from 'react-bootstrap';
-const Dpath = `/Users/apoorv/Documents/psychometricAnalysis/UsersData/`;
 export default class ModifyTest extends Component{
     constructor(props) {
         super(props);
@@ -49,18 +48,40 @@ export default class ModifyTest extends Component{
         axios.get(`http://localhost:8889/findimages/${user}/${testname}`)
             .then((response) => {
                 console.log(response);
-                this.setState({
-                    images:response.data.response
-                });
                 console.log("state image",this.state.images);
-                //var data= response.imageLists;
-                //alert("The findimages is successful");
+                
+                
+                
+                let images = [];
+            response.data.response.map((value,key)=>{
+                let url =`http://localhost:8889/getimage/${user}/${this.state.test}/${value}`; 
+                fetch(url).then((res)=>res.blob()).catch((error)=>{
+                    console.log(error);
+
+                }).then((res)=>{console.log(res,"here is the response");
+            images.push(res);
+            if(key==response.data.response.length-1)
+            {
+                this.setState({
+                    images:images,
+                    showTest:true,
+            showImages:true,
+            user:user
+        
+                });
+            }
+            });
+            });
+            return images;
+            }).then((res)=>{
+                console.log(res,"cjjenc");
+                
             }).catch((error) => {
         });
-        this.setState({
-            showTest:true,
-            showImages:true
-        })
+        
+
+        
+        
 
     }
     handleChange=(e)=>{
@@ -159,7 +180,7 @@ export default class ModifyTest extends Component{
         //     return null;
         // console.log(this.state.showTest);
         // console.log(this.state.quesans);
-        // console.log(this.state.images);
+         console.log(this.state.images);
         // console.log(this.props.initialData);
         return(
         <div>
@@ -207,9 +228,15 @@ export default class ModifyTest extends Component{
                                 <table>
                                 <tbody>
                                 {this.state.images.map((value,key)=>{
+                                    console.log(value,key);
+                                    let url =`http://localhost:8889/getimage/${this.state.user}/${this.state.test}/${value}`; 
+                                    console.log(url);
                                     return (
                                         <tr  key ={key}>
-                                            <td><Image src={`${Dpath}${JSON.parse(localStorage.getItem("user")).username}/${this.state.test}/Images2/`+value} name={"img"+key} roundedCircle /></td>
+                                            <td><Image style={{
+                                                width:"50px",
+                                                height:"50px"
+                                            }}src={URL.createObjectURL(value)} name={"img"+key} roundedCircle /></td>
                                             <td><button className="images" name={"deleteImage"+key} onClick={this.handleChange}>Delete</button></td>
                                         </tr>
                                     )
