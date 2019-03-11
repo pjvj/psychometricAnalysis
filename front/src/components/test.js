@@ -90,7 +90,30 @@ class Test extends Component{
 
     }
     submitDescription(){
-
+        const answer=document.getElementById("sentianswer"+this.state.imgid).value;
+        fetch("http://localhost:8000/FindSentiment",
+        {
+            method: 'post',
+            headers: new Headers({'content-type': 'application/json'}),
+            "withCredentials":true,
+            "mode":"cors",
+            body: JSON.stringify({
+                "answer": answer
+            })
+        }).then(response => {
+            this.setState({
+                iscore: response
+            });
+        }).catch(err=>{
+            console.log(err);
+        })
+        
+        let s="";
+        s=s+"\n Negative"+iscore[0]+"\n Neutral"+iscore[1]+"\n Positive"+ iscore[2];
+        this.setState({
+            showsentimentscore:true,
+            sentimentvalue:s
+        });
     }
     
     
@@ -142,7 +165,27 @@ class Test extends Component{
             });
         }
     }
-    
+    handleChange=(e)=>{
+        //console.log(e.target.name);
+        let test  = this.state.test;
+        let admin = this.state.admin;
+        let name = e.target.name;
+        if(name.split('testtogive').length>1)
+        {
+            test=e.target.value;
+            this.setState({
+                test:test
+            });
+        }
+        else
+        if(name.split('testadmin').length>1)
+        {
+            admin=e.target.value;
+            this.setState({
+                admin:admin
+            });
+        }
+    }
     capture = () => {
         const imageSrc = this.webcam.getScreenshot();
         let y=this.state.noofcaptures;
@@ -338,9 +381,9 @@ secondPhase=()=>{
                             <div className="flex">
                                 <div className="card2">
                                 <div className="card-body2">
-                                    <h4 className="card-title2">Check your IQ</h4>
-                                    <p className="card-text2">Answer the questions that follow.You can navigate through questions using previous and next buttons</p>
-                                    <img className="imagesenti" name={"image"+this.state.imgid}  src={URL.createObjectURL(this.state.images[this.state.imgid])}/>
+                                    <h4 className="card-title2">Describe Me</h4>
+                                    <p className="card-text2">You can navigate through images using previous and next buttons</p>
+                                    <img className="imagesenti" name={"image"+this.state.imgid}  id={"image"+this.state.imgid} src={URL.createObjectURL(this.state.images[this.state.imgid])}/>
                                     <div className="queschangerow">
                                         <button className="changeimgp" name="imgprevious" onClick={this.handleQuestionImages}>Previous</button>
                                         <button className="changeimgn" name="imgnext" onClick={this.handleQuestionImages}>Next</button>
@@ -350,13 +393,13 @@ secondPhase=()=>{
                                 <div className="card2">
                                     <div className="card-body2">
                                             <h4 className="card-title2">Perception Check</h4>
-                                            <p className="card-text2">Write a description of the image you see in 10-50 words. You can navigate through images using previous and next buttons</p>
+                                            <p className="card-text2">Write a description of the image you see in 10-50 words. </p>
                                             <div>
                                                 <p className="displayimg">{this.state.imgid}. {this.state.images[this.state.imgid].question} </p>
                                             </div>
                                             <div className="row">
-                                            {/* <input type="text" className="givenans" id={"answer"+this.state.qid} name={"answer"+this.state.qid} placeholder="Answer"/>
-                                            <button className="testtogive" onClick={this.submitAnswer}>SubmitAnswer</button>  */}
+                                            <input type="text" className="sentians" id={"sentianswer"+this.state.imgid} onChange={this.handleChangeAnswer} placeholder="Answer"/>
+                                            <button className="testtogive" onClick={this.submitDescription}>SubmitAnswer</button> 
                                             {(this.state.showsentimentscore)&&
                                             <input className="imagescore" name={"iscore"+this.state.imgid} placeholder="Score" value ={this.state.sentimentvalue}/>
                                             } 

@@ -54,7 +54,7 @@ export default class SignPageUser extends React.Component {
                         <input className="input-field" type="password" placeholder="Password" id="psw"/>
                     </div>
                     <div>
-                    <button className="register">Sign In</button>
+                    <button className="input-container">Sign In</button>
                     </div>
                     </form>
             </div>

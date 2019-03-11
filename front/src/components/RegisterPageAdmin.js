@@ -61,7 +61,7 @@ export default class RegisterPageUser extends React.Component
                         <i className="fa fa-key icon"/>
                         <input className="input-field" type="text" placeholder="Confirm Password" id="psw chk"/>
                     </div>
-                    <div>
+                    <div className="input-container">
                     <button type="submit" className="register">Register</button>
                     </div>
                     </form>
