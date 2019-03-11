@@ -21,7 +21,7 @@ export default class SignPageUser extends React.Component {
                 })
             }).then(response => {
             return response.json()
-        }).then(function (data) {
+        }).then( (data) => {
             console.log(data);
             if(data.error)
             {
