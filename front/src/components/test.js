@@ -71,7 +71,7 @@ class Test extends Component{
     submitAnswer(){
         const given_ans=document.getElementById("answer"+this.state.qid).value;
         const exp_ans=this.state.quesans[this.state.qid].answer;
-        fetch("http://localhost:8000/FindSimilarity",
+        fetch("http://localhost:8000/FindSimilarity/",
         {
             method: 'post',
             headers: new Headers({'content-type': 'application/json'}),
@@ -90,10 +90,10 @@ class Test extends Component{
         })
 
     }
-    submitDescription(){
+    submitDescription=()=>{
         console.log("submit description  k ander",this.state.sentians);
         var answer=this.state.sentians;
-        fetch("http://localhost:8000/FindSentiment",
+        fetch("http://localhost:8000/FindSentiment/",
         {
             method: 'post',
             headers: new Headers({'content-type': 'application/json'}),
@@ -102,20 +102,21 @@ class Test extends Component{
             body: JSON.stringify({
                 "answer": answer
             })
-        }).then(response => {
+        }).then(response => {return response.json()}).then(data=>{
             this.setState({
-                iscore: response
+                iscore: data
+            });
+            const iscore=this.state.iscore;
+            let s="";
+            s=s+"Negative: "+iscore[0]+"\n Neutral: "+iscore[1]+"\n Positive: "+ iscore[2];
+            this.setState({
+                showsentimentscore:true,
+                sentimentvalue:s
             });
         }).catch(err=>{
             console.log(err);
         })
-        const iscore=this.state.iscore;
-        let s="";
-        s=s+"\n Negative"+iscore[0]+"\n Neutral"+iscore[1]+"\n Positive"+ iscore[2];
-        this.setState({
-            showsentimentscore:true,
-            sentimentvalue:s
-        });
+        
     }
     
     
@@ -262,7 +263,7 @@ Recording=(e)=>{
             showfacescore:true
         });
         let s="";
-        s=s+"\nAngry:"+x[0]+"\nDisgust:"+x[1]+"\nFear:"+x[2]+"\nHappy:"+x[3]+"\nSad:"+x[4]+"\nSurprised:"+x[5]+"\nNeutral:"+x[6];
+        s=s+"Angry: "+x[0]+"\nDisgust: "+x[1]+"\nFear: "+x[2]+"\nHappy: "+x[3]+"\nSad: "+x[4]+"\nSurprised: "+x[5]+"\nNeutral: "+x[6];
         this.setState({
             facevalue:s
         })
@@ -360,7 +361,7 @@ secondPhase=()=>{
                                                 {/* <input type="text" className="givenans" id={"answer"+this.state.qid} name={"answer"+this.state.qid} placeholder="Answer"/>
                                                 <button className="testtogive" onClick={this.submitAnswer}>SubmitAnswer</button>  */}
                                                 {(this.state.showfacescore)&&
-                                                <input className="facescore" name={"qscore"+this.state.qid} placeholder="Score" value ={this.state.facevalue}/>
+                                                <textarea className="facescore" name={"qscore"+this.state.qid} placeholder="Score" value ={this.state.facevalue}/>
                                                 } 
                                                 </div>
                                                 <div className="row" style={{
@@ -395,23 +396,34 @@ secondPhase=()=>{
                                     <div className="card-body2">
                                             <h4 className="card-title2">Perception Check</h4>
                                             <p className="card-text2">Write a description of the image you see in 10-50 words. </p>
-                                            <div>
-                                                <p className="displayimg">{this.state.imgid}. {this.state.images[this.state.imgid].question} </p>
-                                            </div>
                                             <div className="row">
-                                                <input type="text" className="sentians" id={"sentianswer"+this.state.imgid} 
+                                                <textarea type="text" className="sentians" id={"sentianswer"+this.state.imgid} style={{
+                                                    width: "-webkit-fill-available",
+                                                    height: "150px",
+                                                    fontSize: "large",
+                                                    padding:"5px",
+                                                    fontFamily: "cursive"
+                                                }}
                                                 name={"sentianswer"+this.state.imgid} onChange={this.handleChangeAnswer} placeholder="Answer"/>
                                                 <button className="addbutton" onClick={this.submitDescription}>SubmitAnswer</button> 
                                             </div>
                                             <div>
                                             {(this.state.showsentimentscore)&&
-                                            <input className="imagescore" name={"iscore"+this.state.imgid} placeholder="Score" value ={this.state.sentimentvalue}/>
+                                            <textarea className="imagescore" style={{
+                                                display: "table",
+                                                width: "-webkit-fill-available",
+                                                height: "80px",
+                                                marginTop: "15px",
+                                                fontSize: "medium",
+                                                fontFamily: "monospace"
+                                            }}
+                                            name={"iscore"+this.state.imgid} placeholder="Score" value ={this.state.sentimentvalue}/>
                                             } 
                                             </div>
                                             <div className="row" style={{
                                                 	position:"absolute",
-                                                	right:"9px",
-                                                	bottom:"9px"
+                                                	right:"47px",
+                                                	bottom:"41px"
                                                 }}>
                                                 < button className="addbutton" onClick={this.secondPhase}>Finish Test</button>  
                                             </div>

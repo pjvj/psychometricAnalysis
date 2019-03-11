@@ -24,9 +24,11 @@ export default class RegisterPageUser extends React.Component
                     admin:false
                 })
             }).then(response => {
+               
             return response.json();
         }).then((data) => {
             console.log(data);
+            alert(data.msg);
             this.props.history.push('/signInUser');
            
         })

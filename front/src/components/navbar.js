@@ -11,7 +11,7 @@ import jQuery from 'jquery';
                 <section className="navigation">
                     <div className="nav-container">
                         <div className="brand">
-                            <a href="#!">Psycho</a>
+                            <a href="#!">Psychometric Analysis Tool</a>
                         </div>
                         <nav>
                             <div className="nav-mobile"><a id="nav-toggle" href="#!"><span/></a></div>

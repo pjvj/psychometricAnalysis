@@ -4,10 +4,10 @@ section {
 }
 
 .main-body h1, h2, h3, h4, h5, h6 {
-    color: #5385c1;
     font-weight: 300;
     line-height: 1.5;
     margin: 0 0 1em 0;
+    
 }
 
 .main-head-para{
@@ -24,7 +24,7 @@ section {
 }
 .main-heading{
     font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
-    color: lightblue;
+    color: white;
     font-size: 3.5rem;
 }
 
@@ -155,7 +155,10 @@ h2 {
     font-size: 1.75em;
     font-weight: 100;
 }
-
+h3 {
+    font-size: 1.25em;
+    
+}
 .main-body{
-    background-color: lightblue;
+    background-color: lightsteelblue;
 }

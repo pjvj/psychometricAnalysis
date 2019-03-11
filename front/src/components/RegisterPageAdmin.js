@@ -22,9 +22,11 @@ export default class RegisterPageUser extends React.Component
                     admin:true
                 })
             }).then(response => {
+                
             return response.json()
         }).then((data) => {
             console.log(data);
+            alert(data.msg);
             this.props.history.push('/signInAdmin');
         })
             .catch(function (error) {
@@ -41,8 +43,7 @@ export default class RegisterPageUser extends React.Component
                     <form className="regform" onSubmit={this.onSubmit1}>
                     <div className="input-container">
                         <i className="fa fa-user icon"/>
-                        <input 
-                        minLength={10}
+                        <input minLength={10}
                         className="input-field" type="text" placeholder="Full Name" id="name"/>
                     </div>
                     <div className="input-container">

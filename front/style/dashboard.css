@@ -6,7 +6,7 @@
 }
 
 .displayques{
-    font-family: monospace;
+    font-family: serif;
     border: solid 1px lightsteelblue;
     font-size: 20px;
     padding: 10px;
@@ -24,10 +24,8 @@
     width:-webkit-fill-available
 }
 .threebuttons{
-    display: inline-block;
+    display: inline;
     position: relative;
-left:15px;
-    margin: inherit;
 }
 .row startrow{
     margin: 20px;
@@ -165,18 +163,23 @@ position:relative;
     color: black;
 }
 .capture{
+    inline-size: -webkit-fill-available;
     background-color: lightsteelblue;
     border: solid 0.5px steelblue;
-    padding: inherit;
+    padding: 5px;
+    cursor: pointer;
+    font-size: larger;
 }
 .startrec{
     background-color: lightsteelblue;
     border: solid 0.5px steelblue;
     padding: 5px;
     font-size: 20px;
+    cursor: pointer;
     float: left;
 }
 .stoprec{
+    cursor: pointer;
     background-color: lightsteelblue;
     border: solid 0.5px steelblue;
     padding: 5px;
@@ -185,7 +188,7 @@ position:relative;
 }
 .facescore{
     width: 100%;
-    height: 100%;
+    height: 300px;
     padding: 10px;
     font-size: larger;
     font-family: fantasy;
@@ -196,15 +199,15 @@ position:relative;
 }
 
 .changeimgp{
-    background-color: lightsteelblue;
-    border: solid 0.5px steelblue;
+    background-color: cornsilk;
+    border: solid 0.5px LAVENDERBLUSH;
     padding: 5px;
     font-size: 20px;
     float: left;
 }
 .changeimgn{
-    background-color: lightsteelblue;
-    border: solid 0.5px steelblue;
+    background-color: cornsilk;
+    border: solid 0.5px LAVENDERBLUSH;
     padding: 5px;
     font-size: 20px;
     float: right;

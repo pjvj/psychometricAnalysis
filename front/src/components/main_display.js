@@ -9,7 +9,7 @@ const MainDisplay = () => {
         <div className="main-body">
             <section className="main-head" id="banner">
                 <h1 className="main-heading">Psychometric Analysis</h1>
-                <p/><h5 className="main-head-para" >Psychometric Analysis Tool powers judgment based on the assessment of the emotional state of an individual by using webcam, microphone and keyboard inputs. </h5><p/>
+                <p/><h3 className="main-head-para" >Psychometric Analysis Tool powers judgment based on the assessment of the emotional state of an individual by using webcam, microphone and keyboard inputs. </h3><p/>
             </section>
             <section id="one" name="one" className="wrapper">
                 <div className="inner">

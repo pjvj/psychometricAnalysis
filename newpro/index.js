@@ -298,6 +298,7 @@ app.listen(port,()=> {
    })
    app.post('/registernewuser/',function(req,res){
       let d = req.body;
+      console.log("body",d);
       jsonfile.readFile('./users.json',(err,obj)=>{
          if(!err)
          {
