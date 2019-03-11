@@ -4,7 +4,8 @@ import {Link} from "react-router";
 
 export default class SignPageUser extends React.Component {
 
-    onSubmit1=()=> {
+    onSubmit1=(e)=> {
+    	e.preventDefault();
         console.log("gaya");
         fetch("http://localhost:8889/adminusersvalid/",
             {

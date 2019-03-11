@@ -7,7 +7,7 @@ var multer = require('multer');
 var jsonfile = require('jsonfile');
 const path =require('path');
 const fs = require('fs');
-const Dpath = `/Users/Pallavi/college/psychometricAnalysis/UsersData/`;
+const Dpath = `/Users/Pallavi/dldl/psychometricAnalysis/UsersData/`;
 
 
 var Storage = multer.diskStorage({
@@ -332,6 +332,33 @@ app.listen(port,()=> {
                }));
 
             }
+         }
+         else
+         {
+            let obj = {};
+            let entry = {
+                  name:d.fullname,
+                  email:d.email,
+                  password:d.password,
+                  admin:d.admin
+               }
+               obj[d.username]=entry;
+               jsonfile.writeFileSync('./users.json',obj,{spaces:2});
+               const folderName = '/Users/pallavi/college/psychometricAnalysis/UsersData/'+d.username;
+
+               try {
+               if (!fs.existsSync(folderName)){
+                  fs.mkdirSync(folderName,{recursive: true});
+               }
+               } catch (err) {
+               console.error(err)
+               }
+
+               res.send(JSON.stringify({
+                  error:false,
+                  msg:"user successfully created"
+               }));
+
          }
       })
       // console.log(req.body.headers);

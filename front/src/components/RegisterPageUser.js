@@ -7,8 +7,9 @@ import {Link} from "react-router";
 
 export default class RegisterPageUser extends React.Component
 {
-    onSubmit1=()=>
+    onSubmit1=(e)=>
     {
+    	e.preventDefault();
         console.log("jbjjcsbdbdsb");
         fetch("http://localhost:8889/registernewuser",
             {
