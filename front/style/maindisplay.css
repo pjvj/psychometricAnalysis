@@ -3,7 +3,7 @@ section {
     display: block;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.main-body h1, h2, h3, h4, h5, h6 {
     color: #5385c1;
     font-weight: 300;
     line-height: 1.5;

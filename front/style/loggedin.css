@@ -8,12 +8,18 @@
     font-size: larger;
     font-style: italic;
     font-family: monospace;
+    min-height: 40px;
 }
 .quesans{
-    width: inherit;
-    font-size: large;
-    font-style: inherit;
-    font-family: serif;
+  font-size: large;
+  font-style: inherit;
+  font-family: serif;
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
 
 }
 .test1{
@@ -63,3 +69,39 @@
     border: 1px solid #ccc;
     border-top: none;
   }
+
+  .tableques{
+    width: -webkit-fill-available;
+  }
+
+  .addbutton{
+    padding: 2px 6px;
+    font-size: 16px;
+    cursor: grabbing;
+    text-align: center;
+    margin-left: 4px;
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  .deletebutton{
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: grabbing;
+    text-align: center;
+    margin-left: 4px;
+  }
+
+  .submitdiv{
+    margin: 20px;
+  }
+
+  .selecttest{
+    width: 30%;
+    height: 30px;
+    text-align: center;
+    font-size: larger;
+    padding: 8px;
+  }
+
+  

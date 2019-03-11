@@ -1,6 +1,7 @@
 import React from 'react';
-import {browserHistory} from "react-router";
+import {history} from "react-router";
 import {Link} from "react-router";
+//import { Route } from 'react-router-dom'
 //import $ from 'jquery';
 //import {bootstrapValidator} from 'react-bootstrap';
 
@@ -26,7 +27,8 @@ export default class RegisterPageUser extends React.Component
             return response.json();
         }).then((data) => {
             console.log(data);
-            browserHistory.push("/");
+            this.props.history.push('/signInUser');
+           
         })
             .catch(function (error) {
                 alert(error);
@@ -38,12 +40,12 @@ export default class RegisterPageUser extends React.Component
 
     render() {
         return (
-    <div className="div">
+    <div className="main">
             <h2 className="registerhd">REGISTER</h2>
-            <form onSubmit={this.onSubmit1}>
+            <form className="regform" onSubmit={this.onSubmit1}>
             <div className="input-container">
                 <i className="fa fa-user icon"/>
-                <input className="input-field" type="text" placeholder="Full Name" id="name"/>
+                <input minLength={10} className="input-field" type="text" placeholder="Full Name" id="name"/>
             </div>
             <div className="input-container">
                 <i className="fa fa-user icon"/>
@@ -61,7 +63,9 @@ export default class RegisterPageUser extends React.Component
                 <i className="fa fa-key icon"/>
                 <input className="input-field" type="text" placeholder="Confirm Password" id="psw chk"/>
             </div>
-            <button type="submit" onClick={this.onSubmit1} className="btn"><Link to="/">Register</Link></button>
+            <div>
+                <button type="submit" className="register">Register</button>
+            </div>            
             </form>
     </div>
         );

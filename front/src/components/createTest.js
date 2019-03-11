@@ -36,7 +36,7 @@ export default class CreateTest extends Component{
         else if(name.split('delete').length>1)
         {
             let index = parseInt(name.split('delete')[1]);
-            phase=phase.splice(index,1);
+            phase.splice(index,1);
             
         }
         this.setState({
@@ -77,8 +77,7 @@ export default class CreateTest extends Component{
                 alert("The test is successfully uploaded");
             }).catch((error) => {
         });
-
-         data  = new FormData();
+        data  = new FormData();
         var files= this.state.images;
         for(let k=0;k<files.length;k++)
         {
@@ -87,9 +86,7 @@ export default class CreateTest extends Component{
         config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
-            },
-           
-            
+            },   
         };
         axios.post(`http://localhost:8889/upload/${user}/${testname}`,data,config)
             .then((response) => {
@@ -111,24 +108,24 @@ export default class CreateTest extends Component{
             <div className="test1" style={{    backgroundColor: "lightblue"}}>
                 <p style={{fontFamily: "Consolas",fontSize:"30px"}}>
                 You can add question and their expected answer for the first phase of test here.</p>
-            <button name="add" onClick={this.handleChange}>Add Row</button>
-            <table>
+            <button className="addbutton" name="add" onClick={this.handleChange}>Add Row</button>
+            <table className="tableques">
                 <tbody>
                 {this.state.phase1.map((value,key)=>{
                     return (
-                    <tr  key ={key}>
-                        <td><input  className="quesans" name={"question"+key} placeholder="Question" value={value.question} onChange={this.handleChange} /></td>
-                        <td><input  className="quesans" name={"answer"+key} placeholder="Answer" value ={value.answer} onChange={this.handleChange}/></td>
-                        <td><button className="quesans" name={"delete"+key} onClick={this.handleChange}>Delete</button></td>
+                    <tr key ={key}>
+                        <td ><input  className="quesans" name={"question"+key} placeholder="Question" value={value.question} onChange={this.handleChange} /></td>
+                        <td ><input  className="quesans" name={"answer"+key} placeholder="Answer" value ={value.answer} onChange={this.handleChange}/></td>
+                        <td><button className="deletebutton" name={"delete"+key} onClick={this.handleChange}>Delete</button></td>
                     </tr>)
                 })}
                 </tbody>
             </table>
             </div>
-            <div className="test2" style={{    backgroundColor: "moccasin"}}>
+            <div className="test2" style={{ backgroundColor: "moccasin"}}>
             <p style={{fontFamily: "Consolas", fontSize:"30px"}}>
             You can add images for the second phase of test here.</p>
-            <input type="file" name="imgUploader"  onChange={this.uploadFile} multiple/>
+            <input className="addbutton" type="file" name="imgUploader"  onChange={this.uploadFile} multiple/>
             </div>
             {this.state.images&&this.state.images.length>0
             &&this.state.images.map((value,key)=>{
@@ -137,7 +134,9 @@ export default class CreateTest extends Component{
                     height:"50px"
                 }}src={URL.createObjectURL(value)} name={"img"+key} roundedCircle />)
             })}
-            <button name="Submittest" onClick={this.uploadQuesAns}>Submit test</button>
+            <div className="submitdiv">
+            <button className="addbutton" name="Submittest" onClick={this.uploadQuesAns}>Submit test</button>
+            </div>
         </div>);
     }
 

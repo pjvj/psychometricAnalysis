@@ -3,7 +3,7 @@ import NavBar2 from './navbar2'
 //import PersonDetails from './person_details';
 //import Footer from './footer';
 //import {browserHistory,Redirect} from "react-router";
-import {Tabs,Tab,Row,Col,Nav,Sonnet} from 'react-bootstrap'
+//import {Tabs,Tab,Row,Col,Nav,Sonnet} from 'react-bootstrap'
 import CreateTest from './createTest'
 import ModifyTest from './modifyTest'
 import SeeResponses from './response'
@@ -89,7 +89,7 @@ export default class LogPage extends Component {
                     <button className="tablinks" eventKey={2} onClick={this.ModifyTest}> Your Tests</button>
                     
                     <button className="tablinks" eventKey={3} onClick={this.Response}> See Responses</button>
-                    
+                    </div>
                     <div id="Create" className="tabcontent" >
                      {this.state.create&&(<CreateTest/> )}
                     </div>  
@@ -99,7 +99,7 @@ export default class LogPage extends Component {
                     <div id="Response" className="tabcontent">
                     {this.state.response&&(<SeeResponses/>)}
                     </div>  
-                    </div>                     
+                                         
             </div>
                     
             

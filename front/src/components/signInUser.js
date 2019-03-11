@@ -29,6 +29,7 @@ export default class SignPageUser extends React.Component {
             else
             {
             localStorage.setItem("user", JSON.stringify(data.response));
+            this.props.history.push('/Dashboard');
             //browserHistory.push("logIn");
             }
 
@@ -40,10 +41,10 @@ export default class SignPageUser extends React.Component {
 
     render() {
         return (
-            <div className="div">
+            <div className="main">
              
                     <h2 className="registerhd">SIGNIN</h2>
-                    <form onSubmit={this.onSubmit1}>
+                    <form className="regform" onSubmit={this.onSubmit1}>
                     <div className="input-container">
                         <i className="fa fa-user icon"/>
                         <input className="input-field" type="text" placeholder="Username" id="urn"/>
@@ -52,7 +53,9 @@ export default class SignPageUser extends React.Component {
                         <i className="fa fa-key icon"/>
                         <input className="input-field" type="password" placeholder="Password" id="psw"/>
                     </div>
-                    <button type="submit" className="btn-sign ">Sign In</button>
+                    <div>
+                    <button className="register">Sign In</button>
+                    </div>
                     </form>
             </div>
         );

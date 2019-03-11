@@ -28,6 +28,7 @@ export default class SignPageUser extends React.Component {
             else
             {
                 localStorage.setItem("user", JSON.stringify(data.response));
+                this.props.history.push('/logIn');
                 //browserHistory.push("/logIn");
                 //browserHistory.push("/");
                 //this.props.history.push("/logIn");
@@ -42,19 +43,21 @@ export default class SignPageUser extends React.Component {
 
     render() {
         return (
-            <div className="div">
+            <div className="main">
                 
                     <h2 className="registerhd">SIGNIN</h2>
-                    <form onSubmit={this.onSubmit1}>
-                    <div className="input-container">
-                        <i className="fa fa-user icon"/>
-                        <input className="input-field" type="text" placeholder="Username" id="urn"/>
-                    </div>
-                    <div className="input-container">
-                        <i className="fa fa-key icon"/>
-                        <input className="input-field" type="password" placeholder="Password" id="psw"/>
-                    </div>
-                    <button className="btn-sign">Sign In</button>
+                    <form  onSubmit={this.onSubmit1}>
+                        <div className="input-container">
+                            <i className="fa fa-user icon"/>
+                            <input className="input-field" type="text" placeholder="Username" id="urn"/>
+                        </div>
+                        <div className="input-container">
+                            <i className="fa fa-key icon"/>
+                            <input className="input-field" type="password" placeholder="Password" id="psw"/>
+                        </div>
+                        <div className="regform">
+                        <button className="register">Sign In</button>
+                        </div>
                     </form>
             </div>
         );

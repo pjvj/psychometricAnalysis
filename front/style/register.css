@@ -11,6 +11,7 @@
     margin-top: 48px;
     border: 3px dodgerblue solid;
     padding: 30px;
+    height: 60%;
 }
 
 .input-container {
@@ -66,4 +67,12 @@
     font-family: "cursive";
     font-size: 3rem;
     color: black;
+    margin-bottom: 10px;
 }
+.register{
+    border: solid 1px steelblue;
+    padding: 5px;
+    font-size: 15px;
+    float: left;
+    margin: 20px;
+  }

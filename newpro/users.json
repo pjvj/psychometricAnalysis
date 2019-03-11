@@ -76,5 +76,29 @@
     "email": "pallavi.jain@swymcorp",
     "password": "1234",
     "admin": true
+  },
+  "palle": {
+    "name": "PALLAVI JAIN",
+    "email": "socute@gmail.com",
+    "password": "5678",
+    "admin": true
+  },
+  "pppjjj": {
+    "name": "PALLAVI JAIN",
+    "email": "pallavi.jain@swymcorp",
+    "password": "12345",
+    "admin": false
+  },
+  "pjpjpj": {
+    "name": "mjhnfgb . yyrteert ",
+    "email": "pallavi.jain@swymcorp",
+    "password": "12345",
+    "admin": false
+  },
+  "kjjmmm": {
+    "name": "PALLAVI JAIN",
+    "email": "socute@gmail.com",
+    "password": "5678",
+    "admin": false
   }
 }

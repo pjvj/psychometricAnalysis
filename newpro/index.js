@@ -7,16 +7,21 @@ var multer = require('multer');
 var jsonfile = require('jsonfile');
 const path =require('path');
 const fs = require('fs');
-const Dpath = `/Users/apoorv/Documents/psychometricAnalysis/UsersData/`;
+const Dpath = `/Users/pallavi/college/psychometricAnalysis/UsersData/`;
 
 
 var Storage = multer.diskStorage({
    destination: function(req, file, callback) {
-      console.log(req.user);
-       callback(null, `${Dpath}${req.user}/${req.testname}/`+`Images2/`);
+      
+      //console.log(req.user);
+      if(req.user && req.testname)
+      callback(null, `${Dpath}${req.user}/${req.testname}/`+`Images2/`);
+      else
+      callback(null, `${Dpath}`);
+      
    },
    filename: function(req, file, callback) {
-      //console.log(file,"heheheh");
+      console.log(file,"heheheh");
        callback(null, file.originalname );
    }
 });
@@ -39,11 +44,12 @@ let usernotexist = JSON.stringify({
 
 function getImages(imageDir, callback) {
    var fileType1 = '.jpg';
-   var fileType2=  '.png';
+   var fileType2 =  '.png';
+   var fileType3 = '.jpeg';
    var files = [], i;
    fs.readdir(imageDir, function (err, list) {
        for(i=0; i<list.length; i++) {
-           if(path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType2) {
+           if(path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType2 || path.extname(list[i]) === fileType3) {
                files.push(list[i]); //store the file name into the array files
            }
        }
@@ -65,11 +71,12 @@ app.listen(port,()=> {
       next();
    });
 
+
    app.post('/uploadtest/:user/:testname/',function(req, res){
       console.log("quesans upload k ander");
       
       let user = req.params.user;
-       let testname= req.params.testname;
+      let testname= req.params.testname;
        
       req.user = req.params.user ;
       req.testname = req.params.testname ;
@@ -130,7 +137,7 @@ app.listen(port,()=> {
          } catch (err) {
          console.error(err)
          }
-      console.log("image upload k ander");
+      //console.log("image upload k ander");
       
       upload(req, res, function(err) {
           if (err) {
@@ -139,6 +146,46 @@ app.listen(port,()=> {
           }
           return res.end("File uploaded sucessfully!");
       });
+   });
+
+
+   app.post("/uploadfer/", function(req, res) {
+      //console.log("image upload k ander");
+      upload(req, res, function(err) {
+          if (err) {
+             console.log(err);
+              return res.end("Something went wrong!");
+          }
+          return res.end("File uploaded sucessfully!");
+      });
+   });
+
+
+   app.post("/modifyimages/:user/:testname/", function(req, res) {
+      console.log("modify image m response",req.body);
+      let user = req.params.user;
+      let testname= req.params.testname;
+      
+      req.user = req.params.user ;
+      req.testname = req.params.testname ;
+      let l=req.body;
+      const folderName = `${Dpath}${user}/${testname}/`+`Images2`;
+      try {
+         if (!fs.existsSync(folderName)){
+            fs.mkdirSync(folderName,{recursive: true});
+         }
+         } catch (err) {
+         console.error(err)
+         }
+      //console.log("image upload k ander");
+      for (var i =0; i<l.length;i++){
+         fs.unlink(`${Dpath}${user}/${testname}/`+`Images2/${l[i]}`, function(error) {
+            if (error) {
+               throw error;
+            }
+            console.log('Deleted dog.jpg!!');
+         });
+      }
    });
 
    app.get('/getimage/:user/:test/:image',(req,res)=>{

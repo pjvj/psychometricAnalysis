@@ -7,7 +7,11 @@ export default class ModifyTest extends Component{
         super(props);
         this.state={
             test: "",
+            imageup:[],
+            imageNames:[],
+            imageindex:[],
             images: [],
+            delete:[],
             quesans:[],
             showTest:false,
             showImages:false
@@ -20,8 +24,7 @@ export default class ModifyTest extends Component{
         {
             this.setState({
                 test:nextProps.initialData[0]
-            })
-
+            });
         }
     }
 
@@ -32,12 +35,12 @@ export default class ModifyTest extends Component{
             headers: {
                 'Content-Type': 'application/json'
             },
-            
         };
+        //user=this.props.person;
         var user= JSON.parse(localStorage.getItem("user")).username;
         axios.get(`http://localhost:8889/findtest/${user}/${testname}`)
             .then((response) => {
-                console.log(response);
+                console.log(response.data.response);
                 this.setState({
                     quesans:response.data.response
                 });
@@ -45,50 +48,57 @@ export default class ModifyTest extends Component{
             }).catch((error) => {
         });
 
+        
+
         axios.get(`http://localhost:8889/findimages/${user}/${testname}`)
             .then((response) => {
-                console.log(response);
-                console.log("state image",this.state.images);
-                
-                
-                
+                console.log(response.data.response);
+                let imageNames=response.data.response;
+                this.setState({imageNames:imageNames});
                 let images = [];
-            response.data.response.map((value,key)=>{
-                let url =`http://localhost:8889/getimage/${user}/${this.state.test}/${value}`; 
-                fetch(url).then((res)=>res.blob()).catch((error)=>{
-                    console.log(error);
+                response.data.response.map((value,key)=>{
+                    //console.log("image ka naam", value);
+                    let url =`http://localhost:8889/getimage/${user}/${this.state.test}/${value}`; 
+                    fetch(url).then((res)=>res.blob()).catch((error)=>{
+                        console.log(error);
 
-                }).then((res)=>{console.log(res,"here is the response");
-            images.push(res);
-            if(key==response.data.response.length-1)
-            {
-                this.setState({
-                    images:images,
-                    showTest:true,
-            showImages:true,
-            user:user
+                    }).then((res)=>{
+                    images.push(res);
+                    console.log("here is the response",res);
+                    //if(key==response.data.response.length-1)
+                    this.setState({
+                        images:images,
+                        showTest:true,
+                        showImages:true,
+                        user:user
         
-                });
-            }
+                    });
+                    //console.log("state inside image",this.state.images);
             });
+            //console.log("state image",this.state.images);
             });
             return images;
+            //console.log("state image",this.state.images);
             }).then((res)=>{
-                console.log(res,"cjjenc");
                 
+                //console.log(res,"cjjenc");
+                
+
             }).catch((error) => {
         });
-        
-
-        
-        
-
+    
     }
+
+
+
     handleChange=(e)=>{
-        console.log(e.target.name);
+        //console.log(e.target.name);
         let image = this.state.images;
+        let imageNames = this.state.imageNames;
         let phase  = this.state.quesans;
+        let delimg = this.state.delete;
         let name = e.target.name;
+        //console.log(name);
         if(name.split('question').length>1)
         {
             let index = parseInt(name.split('question')[1]);
@@ -106,42 +116,66 @@ export default class ModifyTest extends Component{
             phase.push({question:'',answer:''});
            
         }
+        else if(name.split('deleteImage').length>1)
+        {
+            //let imgind=this.state.imageindex;
+            //console.log("image udne se pehle ",image);
+            let index = parseInt(name.split('deleteImage')[1]);
+            //this.refs.img+{index}
+            delimg.push(this.state.imageNames[index]);
+            //delimg.push(document.getElementById("img"+index).name)
+            image.splice(index,1);
+            imageNames.splice(index,1);
+            //console.log("image udne k baad ",image);
+            
+        }
         else if(name.split('delete').length>1)
         {
             let index = parseInt(name.split('delete')[1]);
-            phase=phase.splice(index,1);
+            phase.splice(index,1);
+            
             
         }
-        else if(name.split('deleteImages').length>1)
-        {
-            
-            let index = parseInt(name.split('deleteImages')[1]);
-            image=image.splice(index,1);
-            console.log(image);
-            
-        }
+        
         this.setState({
             quesans:phase,
-            images: image
+            images: image,
+            delete:delimg,
+            imageNames:imageNames
         });
         
     }
 
     uploadFile = (e)=>{
+        let images = this.state.images; 
+        let imageup=this.state.imageup;
+        let imageName= this.state.imageNames;
         const files = Array.from(e.target.files);
+        for (var i=0;i<files.length;i++)
+        {
+            name= files[i].name;
+            imageName.push(name);
+        }
+
+        images.push(...files);
+        imageup.push(...files);
+        console.log("upload file k ander",images);
+        console.log("upload file k ander",imageName);
         this.setState({
-            images:files
+            images:images,
+            imageNames:imageName,
+            imageup:imageup
         });
-       
+        
     }
     uploadQuesAns=(e)=>{
         let data={ 
             data:this.state.quesans,
-            description:document.getElementById("testd").value
+            description:""
         };
         
-        console.log(data);
-        console.log(this.state.quesans);
+        //console.log(data);
+        //console.log(this.state.quesans);
         var config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -152,12 +186,15 @@ export default class ModifyTest extends Component{
          var   testname= this.state.test;
         axios.post(`http://localhost:8889/uploadtest/${user}/${testname}`,data,config)
             .then((response) => {
-                alert("The test is successfully uploaded");
+                //alert("The test is successfully uploaded");
             }).catch((error) => {
         });
 
-         data  = new FormData();
-        var files= this.state.images;
+        
+        
+        data  = new FormData();
+        var files= this.state.imageup;
+        console.log("images going to be uploadded",files)
         for(let k=0;k<files.length;k++)
         {
             data.append('imgUploader',files[k]);
@@ -169,10 +206,35 @@ export default class ModifyTest extends Component{
         };
         axios.post(`http://localhost:8889/upload/${user}/${testname}`,data,config)
             .then((response) => {
-                alert("The file is successfully uploaded");
+                alert("The files are successfully uploaded");
             }).catch((error) => {
         });
 
+        data=this.state.delete;
+
+        // var width = 1920; 
+        // var height = 1080; 
+        // var canvas = document.createElement('canvas');  // Dynamically Create a Canvas Element
+        // canvas.id = "extractFileCanvas";  // Give the canvas an id
+        // canvas.width  = width;  // Set the width of the Canvas
+        // canvas.height = height;  // Set the height of the Canvas
+        // canvas.style.display   = "none"; 
+        // var imageBuffer = request.file.buffer;
+        // var imageName = 'public/images/map.png';
+        // fs.createWriteStream(imageName).write(imageBuffer);
+
+        console.log("gfxhg",data);
+        fetch(`http://localhost:8889/modifyimages/${user}/${testname}`,
+            {
+                method: 'post',
+                headers: new Headers({'content-type': 'application/json'}),
+                "withCredentials":true,
+                "mode":"cors",
+                body: JSON.stringify(data)
+            }).then(response => {
+                console.log("yoyoyoyoyoyoyoyoy");
+                    
+                });
     }
     render() {
     
@@ -180,14 +242,14 @@ export default class ModifyTest extends Component{
         //     return null;
         // console.log(this.state.showTest);
         // console.log(this.state.quesans);
-         console.log(this.state.images);
+         //console.log(this.state.images);
         // console.log(this.props.initialData);
         return(
         <div>
             <div>
             {
                 (this.props.initialData&&this.props.initialData.length>0)?(
-                    <select onChange={(e)=>{this.setState({
+                    <select className="selecttest" onChange={(e)=>{this.setState({
                         test:e.target.value
                     })}}>
                         {this.props.initialData.map((value,key)=>{
@@ -198,21 +260,22 @@ export default class ModifyTest extends Component{
                     <option>No test Found</option>
                 </select>)
             }
-            <button name="Submittestname" onClick={this.findTests}>Find test</button>
+            <button className="addbutton" name="Submittestname" onClick={this.findTests}>Find test</button>
             </div>
             <div className="div ">
                 {
                     (this.state.showTest)?(
-                <div>
-                <button name="add" onClick={this.handleChange}>Add Row</button>
-                <table>
+                <div className="test1" style={{    backgroundColor: "lightblue"}}>
+                <button className="addbutton" name="add" onClick={this.handleChange}>Add Row</button>
+                <table className="tableques">
                     <tbody>
                     {this.state.quesans.map((value,key)=>{
+                        //console.log(key)
                     return (
                     <tr  key ={key}>
                         <td><input  className="quesans" name={"question"+key} placeholder="Question" value={value.question} onChange={this.handleChange} /></td>
                         <td><input  className="quesans" name={"answer"+key} placeholder="Answer" value ={value.answer} onChange={this.handleChange}/></td>
-                        <td><button className="quesans" name={"delete"+key} onClick={this.handleChange}>Delete</button></td>
+                        <td><button className="deletebutton" name={"delete"+key} onClick={this.handleChange}>Delete</button></td>
                     </tr>)
                 })}
                     </tbody>
@@ -224,35 +287,36 @@ export default class ModifyTest extends Component{
                 <div>
                     {
                         (this.state.showImages)?(
-                            <div>
+                            <div className="test2" style={{ backgroundColor: "moccasin"}}>
                                 <table>
                                 <tbody>
                                 {this.state.images.map((value,key)=>{
-                                    console.log(value,key);
-                                    let url =`http://localhost:8889/getimage/${this.state.user}/${this.state.test}/${value}`; 
-                                    console.log(url);
+                                    console.log("i m going bananas ",value,key);
+                                    //let url =`http://localhost:8889/getimage/${this.state.user}/${this.state.test}/${value}`; 
+                                    //console.log(url);
                                     return (
                                         <tr  key ={key}>
-                                            <td><Image style={{
+                                            <td><img style={{
                                                 width:"50px",
                                                 height:"50px"
-                                            }}src={URL.createObjectURL(value)} name={"img"+key} roundedCircle /></td>
-                                            <td><button className="images" name={"deleteImage"+key} onClick={this.handleChange}>Delete</button></td>
+                                            }}src={URL.createObjectURL(value)} name={value} id={"img"+key} roundedCircle /></td>
+                                            <td><button className="deletebutton" name={"deleteImage"+key} onClick={this.handleChange}>Delete</button></td>
                                         </tr>
                                     )
                                 })}
                             </tbody>
                             </table>
-                            <input type="file" name="imgUploader"  onChange={this.uploadFile} multiple/>
+                            <input className="addbutton" type="file" name="imgUploader"  onChange={this.uploadFile} multiple/>
                             </div>
                         ):  (<div> 
-                                <p>No images. Add images</p> 
-                                <input type="file" name="imgUploader"  onChange={this.uploadFile} multiple/>
+                                
                             </div> 
                             )
                     }
                 </div>
-                <button name="Submittest" onClick={this.uploadQuesAns}>SubmitChanges</button>
+                <div className="submitdiv">
+                <button  className="addbutton" name="Submittest" onClick={this.uploadQuesAns}>SubmitChanges</button>
+                </div>
         </div>
         )
     }

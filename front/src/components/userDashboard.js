@@ -51,15 +51,16 @@ export default class DashBoard extends Component {
                     <br/>
                     <br/>
                     <div className="tab">
-                    <button className="tablinks" eventKey={1} onClick={this.GiveTest} >Give Test</button>                    
-                    <button className="tablinks" eventKey={3} onClick={this.Response}> See Results</button>
+                        <button className="tablinks" eventKey={1} onClick={this.GiveTest} >Give Test</button>                    
+                        <button className="tablinks" eventKey={3} onClick={this.Response}> See Results</button>
+                    </div>
                     <div id="Create" className="tabcontent" >
-                     {this.state.create&&(<GiveTest/> )}
+                        {this.state.create&&(<div><GiveTest/></div> )}
                     </div>    
                     <div id="Results" className="tabcontent">
-                    {this.state.response&&(<Results/>)}
+                        {this.state.response&&(<div><Results/></div>)}
                     </div>  
-                    </div>                     
+                                        
             </div>
                     
             

@@ -25,7 +25,7 @@ export default class RegisterPageUser extends React.Component
             return response.json()
         }).then((data) => {
             console.log(data);
-            browserHistory.push("/");
+            this.props.history.push('/signInAdmin');
         })
             .catch(function (error) {
                 alert(error);
@@ -35,14 +35,10 @@ export default class RegisterPageUser extends React.Component
 
     render() {
         return (
-            <div className="main" style={{    width: "50%",
-                margin: "auto",
-                marginTop: "48px",
-                border: "3px dodgerblue solid",
-                padding: "30px"}}>
+            <div className="main" >
                 
                     <h2 className="registerhd">REGISTER</h2>
-                    <form onSubmit={this.onSubmit1}>
+                    <form className="regform" onSubmit={this.onSubmit1}>
                     <div className="input-container">
                         <i className="fa fa-user icon"/>
                         <input 
@@ -65,7 +61,9 @@ export default class RegisterPageUser extends React.Component
                         <i className="fa fa-key icon"/>
                         <input className="input-field" type="text" placeholder="Confirm Password" id="psw chk"/>
                     </div>
-                    <button type="submit" className="btn">Register</button>
+                    <div>
+                    <button type="submit" className="register">Register</button>
+                    </div>
                     </form>
 
             </div>

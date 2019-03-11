@@ -3,24 +3,25 @@ const axios = require("axios");
 import Test from "./test.js";
 
 
-export default class ModifyTest extends Component{
+export default class GiveTest extends Component{
     constructor(props) {
         super(props);
         this.state={
             test: "",
             admin:"",
             images:[],
-            quesans:[]
+            quesans:[],
+            showtest: 0
         }
     }
 
     
     handleChange=(e)=>{
-        console.log(e.target.name);
+        //console.log(e.target.name);
         let test  = this.state.test;
         let admin = this.state.admin;
         let name = e.target.name;
-        if(name.split('testtomodify').length>1)
+        if(name.split('testtogive').length>1)
         {
             test=e.target.value;
             this.setState({
@@ -40,33 +41,42 @@ export default class ModifyTest extends Component{
     findTests=()=>{
         var testname=this.state.test;
         var user= this.state.admin;
-        console.log(user);
-        console.log(testname);
+        
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             },
             
         };
-        
-       
         axios.get(`http://localhost:8889/findtest/${user}/${testname}`)
             .then((response) => {
-                console.log(response);
+                console.log(response.data.response);
                 this.setState({
-                    quesans:response.response
+                    quesans:response.data.response
                 });
+                if(this.state.quesans.length>0)
+                {
+                    this.setState({
+                        showtest: 1
+                    });
+                }
                 //alert("The findtest is successful");
             }).catch((error) => {
         });
 
         axios.get(`http://localhost:8889/findimages/${user}/${testname}`)
             .then((response) => {
-                console.log(response);
+                console.log(response.data.response);
                 this.setState({
-                    images:response.files
+                    images:response.data.response
                 });
-                console.log("state image",this.state.images);
+                if(this.state.images.length>0)
+                {
+                    this.setState({
+                        showtest: 1
+                    });
+                }
+                //console.log("state image",this.state.images);
                 
             }).catch((error) => {
         });
@@ -74,14 +84,21 @@ export default class ModifyTest extends Component{
     }
 
     render() {
-
+        
         return(
         <div>
-            <input name="testtomodify" placeholder="testname" onChange={this.handleChange} ></input>
-            <input name="testadmin" placeholder="testadmin" onChange={this.handleChange}></input>
-            <button name="Submitt" onClick={this.findTests}>Go to test</button>
+            <div className="row startrow">
+                <input className="testtogive" name="testtogive" placeholder="testname" onChange={this.handleChange} ></input>
+                <input className="testtogive" name="testadmin" placeholder="testadmin" onChange={this.handleChange}></input>
+            </div>
+            <div className="row">
+            <button className="addbutton" name="gototest" onClick={this.findTests}>Go to test</button>
+            </div>
             <div>
-                {this.state.quesans.length>0 && <Test quesans={this.state.quesans } images={this.state.images}/> }
+                {
+                    (this.state.showtest==1)?(<div> <Test quesans={this.state.quesans } user={this.state.admin} testname={this.state.test} images={this.state.images}/></div>):
+                    (<div></div>) 
+                }
             </div>
         </div>
         )
