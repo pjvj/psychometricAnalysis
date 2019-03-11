@@ -7,7 +7,7 @@ var multer = require('multer');
 var jsonfile = require('jsonfile');
 const path =require('path');
 const fs = require('fs');
-const Dpath = `/Users/pallavi/college/psychometricAnalysis/UsersData/`;
+const Dpath = `/Users/Pallavi/college/psychometricAnalysis/UsersData/`;
 
 
 var Storage = multer.diskStorage({

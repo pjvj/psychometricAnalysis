@@ -17,7 +17,7 @@ export default class GiveTest extends Component{
 
     
     handleChange=(e)=>{
-        //console.log(e.target.name);
+        console.log(e.target.name);
         let test  = this.state.test;
         let admin = this.state.admin;
         let name = e.target.name;
@@ -27,6 +27,7 @@ export default class GiveTest extends Component{
             this.setState({
                 test:test
             });
+            console.log("changing name",this.state.test);
         }
         else
         if(name.split('testadmin').length>1)

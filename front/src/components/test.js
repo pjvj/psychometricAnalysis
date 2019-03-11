@@ -29,7 +29,8 @@ class Test extends Component{
             showfacescore:false,
             showsentimentscore:false,
             facevalue:"",
-            sentimentvalue:""
+            sentimentvalue:"",
+            sentians:""
         }
     }
     setRef = webcam => {
@@ -90,7 +91,8 @@ class Test extends Component{
 
     }
     submitDescription(){
-        const answer=document.getElementById("sentianswer"+this.state.imgid).value;
+        console.log("submit description  k ander",this.state.sentians);
+        var answer=this.state.sentians;
         fetch("http://localhost:8000/FindSentiment",
         {
             method: 'post',
@@ -107,7 +109,7 @@ class Test extends Component{
         }).catch(err=>{
             console.log(err);
         })
-        
+        const iscore=this.state.iscore;
         let s="";
         s=s+"\n Negative"+iscore[0]+"\n Neutral"+iscore[1]+"\n Positive"+ iscore[2];
         this.setState({
@@ -165,26 +167,18 @@ class Test extends Component{
             });
         }
     }
-    handleChange=(e)=>{
-        //console.log(e.target.name);
-        let test  = this.state.test;
-        let admin = this.state.admin;
+    handleChangeAnswer=(e)=>{
         let name = e.target.name;
-        if(name.split('testtogive').length>1)
+        let test=this.state.sentians;
+        if(name.split('sentianswer').length>1)
         {
             test=e.target.value;
             this.setState({
-                test:test
+                sentians:test
             });
+            console.log("changing name",this.state.sentians);
         }
-        else
-        if(name.split('testadmin').length>1)
-        {
-            admin=e.target.value;
-            this.setState({
-                admin:admin
-            });
-        }
+        
     }
     capture = () => {
         const imageSrc = this.webcam.getScreenshot();
@@ -328,8 +322,11 @@ secondPhase=()=>{
                                             <div className="card-body1">
                                                 <h4 className="card-title1">Check your IQ</h4>
                                                 <p className="card-text1">Answer the questions that follow.You can navigate through questions using previous and next buttons</p>
-                                                <div className=" videofeed">
+                                                <div className="videofeed">
                                                     <Webcam
+                                                    style={{
+                                                    	width:"-webkit-fill-available"
+                                                    }}
                                                             audio={false}
                                                             height={450}
                                                             ref={this.setRef}
@@ -366,7 +363,11 @@ secondPhase=()=>{
                                                 <input className="facescore" name={"qscore"+this.state.qid} placeholder="Score" value ={this.state.facevalue}/>
                                                 } 
                                                 </div>
-                                                <div className="row">
+                                                <div className="row" style={{
+                                                	position:"absolute",
+                                                	right:"9px",
+                                                	bottom:"9px"
+                                                }}>
                                                     < button className="addbutton" onClick={this.secondPhase}>Phase2</button>  
                                                 </div>
                                             </div>
@@ -398,13 +399,20 @@ secondPhase=()=>{
                                                 <p className="displayimg">{this.state.imgid}. {this.state.images[this.state.imgid].question} </p>
                                             </div>
                                             <div className="row">
-                                            <input type="text" className="sentians" id={"sentianswer"+this.state.imgid} onChange={this.handleChangeAnswer} placeholder="Answer"/>
-                                            <button className="testtogive" onClick={this.submitDescription}>SubmitAnswer</button> 
+                                                <input type="text" className="sentians" id={"sentianswer"+this.state.imgid} 
+                                                name={"sentianswer"+this.state.imgid} onChange={this.handleChangeAnswer} placeholder="Answer"/>
+                                                <button className="addbutton" onClick={this.submitDescription}>SubmitAnswer</button> 
+                                            </div>
+                                            <div>
                                             {(this.state.showsentimentscore)&&
                                             <input className="imagescore" name={"iscore"+this.state.imgid} placeholder="Score" value ={this.state.sentimentvalue}/>
                                             } 
                                             </div>
-                                            <div className="row">
+                                            <div className="row" style={{
+                                                	position:"absolute",
+                                                	right:"9px",
+                                                	bottom:"9px"
+                                                }}>
                                                 < button className="addbutton" onClick={this.secondPhase}>Finish Test</button>  
                                             </div>
                                         </div>
