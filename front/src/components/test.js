@@ -285,8 +285,11 @@ secondPhase=()=>{
                                             <div className="card-body1">
                                                 <h4 className="card-title1">Check your IQ</h4>
                                                 <p className="card-text1">Answer the questions that follow.You can navigate through questions using previous and next buttons</p>
-                                                <div className=" videofeed">
+                                                <div className="videofeed">
                                                     <Webcam
+                                                    style={{
+                                                    	width:"-webkit-fill-available"
+                                                    }}
                                                             audio={false}
                                                             height={450}
                                                             ref={this.setRef}
@@ -323,7 +326,11 @@ secondPhase=()=>{
                                                 <input className="facescore" name={"qscore"+this.state.qid} placeholder="Score" value ={this.state.facevalue}/>
                                                 } 
                                                 </div>
-                                                <div className="row">
+                                                <div className="row" style={{
+                                                	position:"absolute",
+                                                	right:"9px",
+                                                	bottom:"9px"
+                                                }}>
                                                     < button className="addbutton" onClick={this.secondPhase}>Phase2</button>  
                                                 </div>
                                             </div>
